@@ -1,7 +1,9 @@
 import java.util.*;
 
-public class cycle_in_undirected_graph
+public class cycle_in_directed_graph
 {
+
+    boolean[] c,visited;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -17,9 +19,9 @@ public class cycle_in_undirected_graph
             mat[i][1]=sc.nextInt();
         }
 
-       new cycle_in_undirected_graph().findcycle(n,mat);
+       new cycle_in_directed_graph().findcycle(n,mat);
     }
-    boolean []c,visited;
+
     boolean findcycle(int n,int[][] mat)
     {
         c= new boolean[n+1];
@@ -36,7 +38,7 @@ public class cycle_in_undirected_graph
 
         for(int i=0;i<=n;i++)
         { 
-            if(cycle(i,a,-1))
+            if(cycle(i,a))
             {
                 System.out.println("true");
                 return true;
@@ -49,7 +51,7 @@ public class cycle_in_undirected_graph
         
     }
 
-    boolean cycle(int node,ArrayList<ArrayList<Integer>>a,int prev)
+    boolean cycle(int node,ArrayList<ArrayList<Integer>>a)
     {
         c[node]=true;
         visited[node]=true;
@@ -57,13 +59,13 @@ public class cycle_in_undirected_graph
 
         for(int i=0;i<a.get(node).size();i++)
         {
-            if(prev!=a.get(node).get(i)&&c[a.get(node).get(i)])
+            if(c[a.get(node).get(i)])
               return true;
             
             if(visited[a.get(node).get(i)])
              return false;
             
-            if(cycle(a.get(node).get(i),a,node))
+            if(cycle(a.get(node).get(i),a))
               return true;
         }
         c[node]=false;
